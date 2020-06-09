@@ -25,4 +25,5 @@ func init() {
 	}
 
 	DB.AutoMigrate(&model.Article{}, &model.Tag{})
+	DB.AutoMigrate(&model.Auth{})
 }

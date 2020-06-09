@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin/binding"
 )
 
 // ArticleViewPost handle post requests for articles
@@ -15,7 +16,7 @@ func ArticleViewPost(t string) func(c *gin.Context) {
 		var err error
 		var id uint
 
-		err = c.ShouldBind(&articleHandler)
+		err = c.ShouldBindBodyWith(&articleHandler, binding.JSON)
 
 		if err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -44,7 +45,7 @@ func TagViewPost(c *gin.Context) {
 	var err error
 	var id uint
 
-	err = c.ShouldBind(&tagHandler)
+	err = c.ShouldBindBodyWith(&tagHandler, binding.JSON)
 
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})

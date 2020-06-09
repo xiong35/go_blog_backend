@@ -2,22 +2,24 @@ package database
 
 // 连接数据库
 
-/*import (
-    "github.com/jinzhu/gorm"
-    _ "github.com/jinzhu/gorm/dialects/mysql"
-    "fmt"
+import (
+	"fmt"
+
+	"github.com/jinzhu/gorm"
+	// include mysql
+	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
-// 这是全局使用的数据库对象
+// DB 全局使用的数据库对象
 var DB *gorm.DB
 
-func init()  {
-    var err error
-    DB, err = gorm.Open("mysql", "wuyu:MIDSUMMERfish0@/gin?charset=utf8&parseTime=True&loc=Local")
-    if err != nil {
-        fmt.Printf("mysql connect error %v", err)
-    }
-    if DB.Error != nil {
-        fmt.Printf("database error %v", DB.Error)
-    }
-} */
+func init() {
+	var err error
+	DB, err = gorm.Open("mysql", "root:xyl0321@/go_blog?charset=utf8&parseTime=True&loc=Local")
+	if err != nil {
+		fmt.Printf("mysql connect error %v", err)
+	}
+	if DB.Error != nil {
+		fmt.Printf("database error %v", DB.Error)
+	}
+}

@@ -1,12 +1,11 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"go_blog/database"
+	"go_blog/route"
+)
 
 func main() {
-
-	router := gin.Default()
-	router.GET("/ping", func(c *gin.Context) {
-		c.String(200, "pong")
-	})
-	router.Run(":8080")
+	defer database.DB.Close()
+	route.InitRouter()
 }

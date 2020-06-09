@@ -2,7 +2,7 @@ package route
 
 import (
 	"go_blog/middleware"
-	"net/http"
+	"go_blog/route/article"
 
 	"github.com/gin-gonic/gin"
 	// "gin/Controllers"
@@ -18,12 +18,7 @@ func InitRouter() {
 	router.Use(middleware.Cors())
 	// 使用 session(cookie-based)
 	// router.Use(sessions.Sessions("myyyyysession", Sessions.Store))
-	v1 := router.Group("/pre")
-	{
-		v1.GET("/test", func(c *gin.Context) {
-			c.String(http.StatusOK, "lololo")
-		})
-	}
+	article.HandleArticles(router)
 
 	router.Run(":8080")
 }

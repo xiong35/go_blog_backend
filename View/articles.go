@@ -7,31 +7,34 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// BlogViewPost handle post requests for articles
-func BlogViewPost(c *gin.Context) {
-	var blogHandler handlers.Blog
-	var err error
-	var id uint
+// ArticleViewPost handle post requests for articles
+func ArticleViewPost(t string) func(c *gin.Context) {
 
-	err = c.ShouldBind(&blogHandler)
+	return func(c *gin.Context) {
+		var articleHandler handlers.Article
+		var err error
+		var id uint
 
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
+		err = c.ShouldBind(&articleHandler)
 
-	id, err = blogHandler.Insert()
-	if err != nil {
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+
+		id, err = articleHandler.Insert(t)
+		if err != nil {
+			c.JSON(http.StatusOK, gin.H{
+				"status":  http.StatusInternalServerError,
+				"message": "Insert() error!",
+			})
+			return
+		}
 		c.JSON(http.StatusOK, gin.H{
-			"status":  http.StatusInternalServerError,
-			"message": "Insert() error!",
+			"status": http.StatusOK,
+			"id":     id,
 		})
-		return
 	}
-	c.JSON(http.StatusOK, gin.H{
-		"status": http.StatusOK,
-		"id":     id,
-	})
 
 }
 

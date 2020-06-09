@@ -17,6 +17,5 @@ type Article struct {
 	Content  string `gorm:"type:text"`
 	Headline string `gorm:"type:varchar(200)"`
 	Tags     []Tag
-	TagsID   uint
 	Type     string
 }

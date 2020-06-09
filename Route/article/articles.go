@@ -1,6 +1,7 @@
 package article
 
 import (
+	"go_blog/middleware"
 	"go_blog/view"
 
 	"github.com/gin-gonic/gin"
@@ -8,13 +9,18 @@ import (
 
 // HandleArticles dispatch requests for articles
 func HandleArticles(r *gin.Engine) {
-	artlcleGroup := r.Group("/articles")
+	articleGroup := r.Group("/articles")
+	articleGroup.Use(middleware.CheckAdmin())
 	{
-		// artlcleGroup.GET("/", func(c *gin.Context) {
+		// articleGroup.GET("/", func(c *gin.Context) {
 		// 	c.String(200, "999")
 		// })
-		artlcleGroup.POST("/tags", view.TagViewPost)
-		artlcleGroup.POST("/trap", view.ArticleViewPost("trap"))
-		artlcleGroup.POST("/blog", view.ArticleViewPost("blog"))
+		articleGroup.POST("/tags", view.TagViewPost)
+		articleGroup.POST("/trap", view.ArticleViewPost("trap"))
+		articleGroup.POST("/blog", view.ArticleViewPost("blog"))
+
+		// articleGroup.GET("/tags", view.TagViewGet)
+		articleGroup.GET("/trap", view.ArticleViewGet("trap"))
+		articleGroup.GET("/blog", view.ArticleViewGet("blog"))
 	}
 }

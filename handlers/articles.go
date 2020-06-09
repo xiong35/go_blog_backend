@@ -36,6 +36,19 @@ func (article *Article) Insert(t string) (id uint, err error) {
 	return
 }
 
+// GetArticle get article by id or get all
+func GetArticle(t string, id uint) (rtList []Article) {
+	typed := database.DB.Table("articles").Where("type = ?", t)
+
+	if id != 0 {
+		typed = typed.Where("id = ?", id)
+	}
+
+	typed.Find(&rtList)
+
+	return
+}
+
 // Tag :form model for tag
 type Tag struct {
 	ID      uint   `json:"id" form:"id"`

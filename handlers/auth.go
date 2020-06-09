@@ -6,6 +6,7 @@ import (
 	"time"
 )
 
+// Token model for token
 type Token struct {
 	Password string `form:"password"`
 	Token    string `form:"token"`

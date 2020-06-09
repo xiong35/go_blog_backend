@@ -1,8 +1,10 @@
 package view
 
 import (
+	"fmt"
 	"go_blog/handlers"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
@@ -65,4 +67,40 @@ func TagViewPost(c *gin.Context) {
 		"id":     id,
 	})
 
+}
+
+// ArticleViewGet handle get requests for articles
+func ArticleViewGet(t string) func(c *gin.Context) {
+	return func(c *gin.Context) {
+		idStr := c.DefaultQuery("id", "0")
+		id, err := strconv.Atoi(idStr)
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"error": "unsupported id number",
+			})
+		}
+		uid := uint(id)
+		rtList := handlers.GetArticle(t, uid)
+
+		fmt.Println(rtList)
+
+		if uid == 0 {
+			c.JSON(http.StatusOK, gin.H{
+				"status": 200,
+				"data":   rtList,
+			})
+			return
+		}
+		if len(rtList) == 0 {
+			c.JSON(http.StatusNotFound, gin.H{
+				"error": "id not found",
+			})
+			return
+		}
+		c.JSON(http.StatusOK, gin.H{
+			"status": 200,
+			"data":   rtList[0],
+		})
+		return
+	}
 }

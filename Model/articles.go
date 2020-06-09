@@ -1,23 +1,21 @@
 package model
 
-// 定义模型类, 类方法
+import (
+	"github.com/jinzhu/gorm"
+)
 
-/* type Test struct {
-    Id int `json:"id"`
-    Testcol string `gorm:"column:testcol" json:"testcol"`
+// Blog model for blog
+type Blog struct {
+	gorm.Model
+	Content  string `gorm:"type:text"`
+	Headline string `gorm:"type:varchar(200)"`
+	Tags     []Tag
+	TagsID   uint
 }
 
-// 设置Test的表名为`test`
-// func (Test) TableName() string {
-//     return "test"
-// }
-
-func (this *Test) Insert() (id int, err error) {
-    result := Mysql.DB.Create(&this)
-    id = this.Id
-    if result.Error != nil {
-        err = result.Error
-        return
-    }
-    return
-} */
+// Tag model for tag
+type Tag struct {
+	gorm.Model
+	TagName string `gorm:"type:char(20)"`
+	Count   *uint
+}

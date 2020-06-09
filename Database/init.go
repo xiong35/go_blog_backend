@@ -4,6 +4,7 @@ package database
 
 import (
 	"fmt"
+	"go_blog/model"
 
 	"github.com/jinzhu/gorm"
 	// include mysql
@@ -22,4 +23,6 @@ func init() {
 	if DB.Error != nil {
 		fmt.Printf("database error %v", DB.Error)
 	}
+
+	DB.AutoMigrate(&model.Blog{}, &model.Tag{})
 }

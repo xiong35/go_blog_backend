@@ -10,6 +10,7 @@ import (
 func HandleArticles(r *gin.Engine) {
 	artlcleGroup := r.Group("/articles")
 	{
-		artlcleGroup.GET("/test", view.BlogView)
+		artlcleGroup.POST("/tags", view.TagViewPost)
+		artlcleGroup.POST("/blog", view.BlogViewPost)
 	}
 }

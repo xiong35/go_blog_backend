@@ -7,27 +7,28 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-// Blog :form model for blog
-type Blog struct {
+// Article :form model for article
+type Article struct {
 	ID       uint     `json:"id" form:"id"`
 	Content  string   `json:"content" form:"content"`
 	Tags     []string `json:"tags" form:"tags[]"`
 	Headline string   `json:"headline" form:"headline"`
 }
 
-// Insert :handler for blog
-func (blog *Blog) Insert() (id uint, err error) {
+// Insert :handler for article
+func (article *Article) Insert(t string) (id uint, err error) {
 
-	var blogModel model.Blog
+	var articleModel model.Article
 
-	tags := database.DB.Table("tags").Where("tag_name in (?)", blog.Tags)
-	tags.Find(&blogModel.Tags).Update("count", gorm.Expr("count + ?", 1))
+	tags := database.DB.Table("tags").Where("tag_name in (?)", article.Tags)
+	tags.Find(&articleModel.Tags).Update("count", gorm.Expr("count + ?", 1))
 
-	blogModel.Headline = blog.Headline
-	blogModel.Content = blog.Content
+	articleModel.Headline = article.Headline
+	articleModel.Content = article.Content
+	articleModel.Type = t
 
-	result := database.DB.Create(&blogModel)
-	id = blogModel.ID
+	result := database.DB.Create(&articleModel)
+	id = articleModel.ID
 	if result.Error != nil {
 		err = result.Error
 		return

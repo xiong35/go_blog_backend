@@ -24,5 +24,5 @@ func init() {
 		fmt.Printf("database error %v", DB.Error)
 	}
 
-	DB.AutoMigrate(&model.Blog{}, &model.Tag{})
+	DB.AutoMigrate(&model.Article{}, &model.Tag{})
 }

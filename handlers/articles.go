@@ -21,7 +21,7 @@ func (article *Article) Insert(t string) (id uint, err error) {
 	var articleModel model.Article
 
 	tags := database.DB.Table("tags").Where("tag_name in (?)", article.Tags)
-	tags.Find(&articleModel.Tags).Update("count", gorm.Expr("count + ?", 1))
+	tags.Update("count", gorm.Expr("count + ?", 1)).Find(&articleModel.Tags)
 
 	articleModel.Headline = article.Headline
 	articleModel.Content = article.Content
@@ -37,14 +37,16 @@ func (article *Article) Insert(t string) (id uint, err error) {
 }
 
 // GetArticle get article by id or get all
-func GetArticle(t string, id uint) (rtList []Article) {
+func GetArticle(t string, id uint) (rtList []model.Article) {
 	typed := database.DB.Table("articles").Where("type = ?", t)
 
 	if id != 0 {
 		typed = typed.Where("id = ?", id)
+	} else {
+		typed = typed.Select("headline, updated_at, id")
 	}
 
-	typed.Find(&rtList)
+	typed.Preload("Tags").Find(&rtList)
 
 	return
 }

@@ -1,7 +1,6 @@
 package view
 
 import (
-	"fmt"
 	"go_blog/handlers"
 	"net/http"
 	"strconv"
@@ -81,8 +80,6 @@ func ArticleViewGet(t string) func(c *gin.Context) {
 		}
 		uid := uint(id)
 		rtList := handlers.GetArticle(t, uid)
-
-		fmt.Println(rtList)
 
 		if uid == 0 {
 			c.JSON(http.StatusOK, gin.H{

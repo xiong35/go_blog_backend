@@ -19,8 +19,13 @@ func InitRouter() {
 	router.Use(middleware.Cors())
 	// 使用 session(cookie-based)
 	// router.Use(sessions.Sessions("myyyyysession", Sessions.Store))
+
 	article.HandleArticles(router)
+
 	router.GET("/meta", view.MetaViewGet())
+
+	router.GET("/can", view.CanViewGet())
+	router.POST("/can", view.CanViewPost())
 
 	router.Run(":8080")
 }

@@ -3,6 +3,7 @@ package route
 import (
 	"go_blog/middleware"
 	"go_blog/route/article"
+	"go_blog/view"
 
 	"github.com/gin-gonic/gin"
 	// "gin/Controllers"
@@ -19,6 +20,7 @@ func InitRouter() {
 	// 使用 session(cookie-based)
 	// router.Use(sessions.Sessions("myyyyysession", Sessions.Store))
 	article.HandleArticles(router)
+	router.GET("/meta", view.MetaViewGet())
 
 	router.Run(":8080")
 }

@@ -16,8 +16,8 @@ func HandleArticles(r *gin.Engine) {
 		// 	c.String(200, "999")
 		// })
 		articleGroup.POST("/tags", view.TagViewPost)
-		articleGroup.POST("/trap", view.ArticleViewPost("trap"))
-		articleGroup.POST("/blog", view.ArticleViewPost("blog"))
+		articleGroup.POST("/trap", middleware.AddArticle(), view.ArticleViewPost("trap"))
+		articleGroup.POST("/blog", middleware.AddArticle(), view.ArticleViewPost("blog"))
 
 		// articleGroup.GET("/tags", view.TagViewGet)
 		articleGroup.GET("/trap", view.ArticleViewGet("trap"))

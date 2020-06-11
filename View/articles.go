@@ -77,6 +77,7 @@ func ArticleViewGet(t string) func(c *gin.Context) {
 			c.JSON(http.StatusBadRequest, gin.H{
 				"error": "unsupported id number",
 			})
+			return
 		}
 		uid := uint(id)
 		rtList := handlers.GetArticle(t, uid)

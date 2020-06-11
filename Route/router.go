@@ -23,6 +23,7 @@ func InitRouter() {
 	article.HandleArticles(router)
 
 	router.GET("/meta", view.MetaViewGet())
+	router.POST("/meta/duck", view.PostDuck())
 
 	router.GET("/can", view.CanViewGet())
 	router.POST("/can", view.CanViewPost())

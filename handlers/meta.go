@@ -8,7 +8,7 @@ import (
 type Meta struct {
 	Key      string `json:"key"`
 	Value    uint   `json:"value"`
-	Addition string `json:"addition "`
+	Addition string `json:"addition"`
 }
 
 // GetMeta get all meta

@@ -30,11 +30,11 @@ func init() {
 
 	// var numMeta, duckMeta model.Meta
 
-	// numMeta.Key = "article_num"
+	// numMeta.Key = "文章总数"
 	// numMeta.Addition = "篇"
 	// DB.Create(&numMeta)
 
-	// duckMeta.Key = "duck_killed"
+	// duckMeta.Key = "击杀小鸭"
 	// duckMeta.Addition = "次"
 	// duckMeta.Value = 75
 	// DB.Create(&duckMeta)

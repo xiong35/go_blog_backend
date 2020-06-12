@@ -12,7 +12,7 @@ func AddArticle() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		c.Next()
 		if c.Writer.Status() == 200 {
-			database.DB.Table("meta").Where("`key` = \"article_num\"").
+			database.DB.Table("meta").Where("`key` = \"文章总数\"").
 				Update("value", gorm.Expr("value + ?", 1))
 		}
 	}

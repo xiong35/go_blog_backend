@@ -26,7 +26,7 @@ func MetaViewGet() func(c *gin.Context) {
 // PostDuck handle duck kill
 func PostDuck() func(c *gin.Context) {
 	return func(c *gin.Context) {
-		database.DB.Table("meta").Where("`key` = \"duck_killed\"").
+		database.DB.Table("meta").Where("`key` = \"击杀小鸭\"").
 			Update("value", gorm.Expr("value + ?", 1))
 	}
 }

@@ -55,6 +55,7 @@ func GetArticle(t string, id uint) (rtList []model.Article) {
 type Tag struct {
 	ID      uint   `json:"id" form:"id"`
 	TagName string `json:"tag_name" form:"tag_name"`
+	Count   uint   `json:"count" form:"count"`
 }
 
 // Insert :handler for tag
@@ -71,5 +72,11 @@ func (tag *Tag) Insert() (id uint, err error) {
 		err = result.Error
 		return
 	}
+	return
+}
+
+// GetTags get all tags
+func GetTags() (rtList []Tag) {
+	database.DB.Table("tags").Find(&rtList)
 	return
 }

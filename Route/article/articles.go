@@ -19,7 +19,7 @@ func HandleArticles(r *gin.Engine) {
 		articleGroup.POST("/trap", middleware.AddArticle(), view.ArticleViewPost("trap"))
 		articleGroup.POST("/blog", middleware.AddArticle(), view.ArticleViewPost("blog"))
 
-		// articleGroup.GET("/tags", view.TagViewGet)
+		articleGroup.GET("/tags", view.TagViewGet())
 		articleGroup.GET("/trap", view.ArticleViewGet("trap"))
 		articleGroup.GET("/blog", view.ArticleViewGet("blog"))
 	}

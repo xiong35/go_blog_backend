@@ -12,6 +12,7 @@ type Article struct {
 	ID       uint     `json:"id" form:"id"`
 	Content  string   `json:"content" form:"content"`
 	Tags     []string `json:"tags" form:"tags[]"`
+	Type     string   `json:"type" form:"type"`
 	Headline string   `json:"headline" form:"headline"`
 }
 
@@ -36,6 +37,34 @@ func (article *Article) Insert(t string) (id uint, err error) {
 	return
 }
 
+// Update :handler for article
+func (article *Article) Update() (id uint, err error) {
+
+	var articleModel model.Article
+
+	database.DB.Where("id = ?", article.ID).First(&articleModel)
+
+	database.DB.Table("tags").Where("tag_name in (?)", article.Tags).Find(&articleModel.Tags)
+
+	if article.Headline != "" {
+		articleModel.Headline = article.Headline
+	}
+	if article.Content != "" {
+		articleModel.Content = article.Content
+	}
+	if article.Type != "" {
+		articleModel.Type = article.Type
+	}
+
+	result := database.DB.Save(&articleModel)
+	id = articleModel.ID
+	if result.Error != nil {
+		err = result.Error
+		return
+	}
+	return
+}
+
 // GetArticle get article by id or get all
 func GetArticle(t string, id uint) (rtList []model.Article) {
 	typed := database.DB.Table("articles").Where("type = ?", t)
@@ -46,7 +75,7 @@ func GetArticle(t string, id uint) (rtList []model.Article) {
 		typed = typed.Select("headline, updated_at, id")
 	}
 
-	typed.Preload("Tags").Find(&rtList)
+	typed.Order("updated_at desc").Preload("Tags").Find(&rtList)
 
 	return
 }

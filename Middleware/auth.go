@@ -17,10 +17,10 @@ func CheckAdmin() gin.HandlerFunc {
 			err := c.ShouldBindBodyWith(&token, binding.JSON)
 
 			rtToken, permission, new, err := token.Check()
-
 			if new {
 				c.Abort()
 				c.JSON(http.StatusOK, gin.H{
+					"status":     http.StatusOK,
 					"token":      rtToken,
 					"permission": permission,
 				})
@@ -31,7 +31,10 @@ func CheckAdmin() gin.HandlerFunc {
 			if fail {
 				c.Abort()
 				c.JSON(http.StatusUnauthorized, gin.H{
-					"error": "authorize failed",
+					"status":     http.StatusUnauthorized,
+					"error":      "authorize failed",
+					"token":      rtToken,
+					"permission": permission,
 				})
 			}
 		}

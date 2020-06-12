@@ -19,8 +19,7 @@ func HandleArticles(r *gin.Engine) {
 		articleGroup.POST("/trap", middleware.AddArticle(), view.ArticleViewPost("trap"))
 		articleGroup.POST("/blog", middleware.AddArticle(), view.ArticleViewPost("blog"))
 
-		articleGroup.PUT("/trap", view.ArticleViewPut())
-		articleGroup.PUT("/blog", view.ArticleViewPut())
+		articleGroup.PUT("/put", view.ArticleViewPut())
 
 		articleGroup.GET("/tags", view.TagViewGet())
 		articleGroup.GET("/trap", view.ArticleViewGet("trap"))

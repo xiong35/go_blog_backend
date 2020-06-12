@@ -11,7 +11,7 @@ import (
 // CheckAdmin :if no correct pw, post method is not allowed
 func CheckAdmin() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		if c.Request.Method == "POST" {
+		if c.Request.Method == "POST" || c.Request.Method == "PUT" {
 
 			var token handlers.Token
 			err := c.ShouldBindBodyWith(&token, binding.JSON)

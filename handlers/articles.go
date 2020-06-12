@@ -67,12 +67,12 @@ func (article *Article) Update() (id uint, err error) {
 
 // GetArticle get article by id or get all
 func GetArticle(t string, id uint) (rtList []model.Article) {
-	typed := database.DB.Table("articles").Where("type = ?", t)
+	typed := database.DB.Table("articles")
 
 	if id != 0 {
 		typed = typed.Where("id = ?", id)
 	} else {
-		typed = typed.Select("headline, updated_at, id")
+		typed = typed.Where("type = ?", t).Select("headline, updated_at, id")
 	}
 
 	typed.Order("updated_at desc").Preload("Tags").Find(&rtList)

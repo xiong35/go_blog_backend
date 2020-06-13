@@ -30,7 +30,7 @@ func CheckAdmin() gin.HandlerFunc {
 			fail := err != nil || permission < 9
 			if fail {
 				c.Abort()
-				c.JSON(http.StatusUnauthorized, gin.H{
+				c.JSON(http.StatusOK, gin.H{
 					"status":     http.StatusUnauthorized,
 					"error":      "authorize failed",
 					"token":      rtToken,

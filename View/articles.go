@@ -45,7 +45,7 @@ func ArticleViewGet(t string) func(c *gin.Context) {
 		idStr := c.DefaultQuery("id", "0")
 		id, err := strconv.Atoi(idStr)
 		if err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{
+			c.JSON(http.StatusOK, gin.H{
 				"status": http.StatusBadRequest,
 				"error":  "unsupported id number",
 			})
@@ -62,7 +62,7 @@ func ArticleViewGet(t string) func(c *gin.Context) {
 			return
 		}
 		if len(rtList) == 0 {
-			c.JSON(http.StatusNotFound, gin.H{
+			c.JSON(http.StatusOK, gin.H{
 				"status": http.StatusNotFound,
 				"error":  "id not found",
 			})
@@ -87,7 +87,7 @@ func ArticleViewPut() func(c *gin.Context) {
 		err = c.ShouldBindBodyWith(&articleHandler, binding.JSON)
 
 		if err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{
+			c.JSON(http.StatusOK, gin.H{
 				"status": http.StatusBadRequest,
 				"error":  err.Error(),
 			})
@@ -118,7 +118,7 @@ func TagViewPost(c *gin.Context) {
 	err = c.ShouldBindBodyWith(&tagHandler, binding.JSON)
 
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.JSON(http.StatusOK, gin.H{"error": err.Error()})
 		return
 	}
 

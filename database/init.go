@@ -4,6 +4,7 @@ package database
 
 import (
 	"fmt"
+	"go_blog/model"
 
 	"github.com/jinzhu/gorm"
 	// include mysql
@@ -23,10 +24,10 @@ func init() {
 		fmt.Printf("database error %v", DB.Error)
 	}
 
-	// DB.AutoMigrate(&model.Article{}, &model.Tag{})
-	// DB.AutoMigrate(&model.Auth{})
-	// DB.AutoMigrate(&model.Meta{})
-	// DB.AutoMigrate(&model.ICan{})
+	DB.AutoMigrate(&model.Article{}, &model.Tag{})
+	DB.AutoMigrate(&model.Auth{})
+	DB.AutoMigrate(&model.Meta{})
+	DB.AutoMigrate(&model.ICan{})
 
 	// var numMeta, duckMeta model.Meta
 

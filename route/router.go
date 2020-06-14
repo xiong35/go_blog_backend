@@ -14,6 +14,7 @@ import (
 
 // InitRouter init the router
 func InitRouter() {
+	gin.SetMode(gin.ReleaseMode)
 	router := gin.Default()
 	// 要在路由组之前全局使用「跨域中间件」, 否则OPTIONS会返回404
 	router.Use(middleware.Cors())

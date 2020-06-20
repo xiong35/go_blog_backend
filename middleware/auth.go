@@ -20,7 +20,7 @@ func CheckAdmin() gin.HandlerFunc {
 			if new {
 				c.Abort()
 				c.JSON(http.StatusOK, gin.H{
-					"status":     http.StatusOK,
+					"status":     http.StatusUnauthorized,
 					"token":      rtToken,
 					"permission": permission,
 				})

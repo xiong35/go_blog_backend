@@ -106,6 +106,6 @@ func (tag *Tag) Insert() (id uint, err error) {
 
 // GetTags get all tags
 func GetTags() (rtList []Tag) {
-	database.DB.Table("tags").Find(&rtList)
+	database.DB.Table("tags").Order("id desc").Find(&rtList)
 	return
 }

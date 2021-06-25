@@ -1,0 +1,1 @@
+nohup go run main.go > /var/www/blog/go_blog_backend/log/go.log 2>&1 &
